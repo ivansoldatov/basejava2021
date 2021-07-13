@@ -9,7 +9,7 @@ import java.util.Arrays;
  */
 public class ArrayStorage {
 
-    private static final int number = 4;
+    private static final int number = 10000;
     private Resume[] storage = new Resume[number];
     private int size = 0;
 
@@ -20,16 +20,13 @@ public class ArrayStorage {
     }
 
     public void save(Resume resume) {
-        if (size == number) {
-            System.out.println("Storage is full");
-            return;
-        }
         int index = getIndex(resume.getUuid());
-
-        if (checkNotExist(index)) {
+        if (size >= number) {
+            System.out.println("Storage overflow");
+        } else if (checkNotExist(index)) {
             storage[size] = resume;
             size++;
-            System.out.println(resume.getUuid()+" save");
+            System.out.println(resume.getUuid() + " save");
         }
     }
 
@@ -37,14 +34,14 @@ public class ArrayStorage {
         int index = getIndex(resume.getUuid());
         if (checkExist(index)) {
             storage[index] = resume;
-            System.out.println(resume+ " updated");
+            System.out.println(resume + " updated");
         }
     }
 
     public Resume get(String uuid) {
         int index = getIndex(uuid);
         if (checkExist(index)) {
-            return storage[getIndex(uuid)];
+            return storage[index];
         } else return null;
     }
 
@@ -54,7 +51,7 @@ public class ArrayStorage {
             System.arraycopy(storage, index + 1, storage, index, size - 1 - index);
             storage[size - 1] = null;
             size--;
-            System.out.println(uuid+ " delete");
+            System.out.println(uuid + " delete");
         }
     }
 
@@ -82,7 +79,7 @@ public class ArrayStorage {
         if (index >= 0) {
             return true;
         } else {
-            System.out.println("Resume not found");
+            System.out.println("Resume already exist");
             return false;
         }
     }
@@ -91,7 +88,7 @@ public class ArrayStorage {
         if (index < 0) {
             return true;
         } else {
-            System.out.println("Resume found");
+            System.out.println("Resume not exist");
             return false;
         }
     }
