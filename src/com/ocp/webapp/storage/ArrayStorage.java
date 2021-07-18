@@ -76,7 +76,7 @@ public class ArrayStorage implements Storage {
         if (index >= 0) {
             return true;
         } else {
-            System.out.println("Resume already exist");
+            System.out.println("Resume not exist");
             return false;
         }
     }
@@ -85,7 +85,7 @@ public class ArrayStorage implements Storage {
         if (index < 0) {
             return true;
         } else {
-            System.out.println("Resume not exist");
+            System.out.println("Resume already exist");
             return false;
         }
     }

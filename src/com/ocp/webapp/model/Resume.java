@@ -5,7 +5,6 @@ package com.ocp.webapp.model;
  */
 public class Resume {
 
-    // Unique identifier
     private String uuid;
 
     public String getUuid() {
