@@ -1,14 +1,14 @@
 package com.ocp.webapp;
 
 import com.ocp.webapp.model.Resume;
-import com.ocp.webapp.storage.ArrayStorage;
+import com.ocp.webapp.storage.SortedArrayStorage;
 import com.ocp.webapp.storage.Storage;
 
 /**
  * Test for your com.ocp.webapp.storage.ArrayStorage implementation
  */
 public class MainTestArrayStorage {
-    private static final Storage ARRAY_STORAGE = new ArrayStorage();
+    private static final Storage ARRAY_STORAGE = new SortedArrayStorage();
 
     public static void main(String[] args) {
         Resume r1 = new Resume();
