@@ -25,17 +25,17 @@ public class MainTestArrayStorage {
         r6.setUuid("uuid3");
 
 
-        System.out.print("Save r1: ");
+        System.out.println("Save r1: ");
         ARRAY_STORAGE.save(r1);
-        System.out.print("Save r2: ");
+        System.out.println("Save r2: ");
         ARRAY_STORAGE.save(r2);
-        System.out.print("Save r3: ");
+        System.out.println("Save r3: ");
         ARRAY_STORAGE.save(r3);
-        System.out.print("Save r6 (uuid3): ");
+        System.out.println("Save r6 (uuid3): ");
         ARRAY_STORAGE.save(r6);
-        System.out.print("Save r4: ");
+        System.out.println("Save r4: ");
         ARRAY_STORAGE.save(r4);
-        System.out.print("Save r5: ");
+        System.out.println("Save r5: ");
         ARRAY_STORAGE.save(r5);
         System.out.println();
 
@@ -56,9 +56,9 @@ public class MainTestArrayStorage {
         ARRAY_STORAGE.delete(r5.getUuid());
         printAll();
 
-        System.out.print("Update r6 (uuid3): ");
+        System.out.println("Update r6 (uuid3): ");
         ARRAY_STORAGE.update(r6);
-        System.out.print("Update r5 (uuid5): ");
+        System.out.println("Update r5 (uuid5): ");
         ARRAY_STORAGE.update(r5);
         printAll();
 
