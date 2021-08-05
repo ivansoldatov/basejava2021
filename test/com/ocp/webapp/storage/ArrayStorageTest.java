@@ -1,8 +1,9 @@
 package com.ocp.webapp.storage;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
-public class ArrayStorageTest extends AbstractArrayStorageTest {
+class ArrayStorageTest extends AbstractArrayStorageTest {
+
     public ArrayStorageTest() {
         super(new ArrayStorage());
     }
