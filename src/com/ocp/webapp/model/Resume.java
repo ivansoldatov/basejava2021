@@ -2,9 +2,7 @@ package com.ocp.webapp.model;
 
 import java.util.UUID;
 
-/**
- * Initial resume class
- */
+
 public class Resume implements Comparable<Resume> {
 
     private final String uuid;

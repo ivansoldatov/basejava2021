@@ -15,7 +15,7 @@ class AbstractArrayStorageTest {
 
     private Storage storage;
 
-    public AbstractArrayStorageTest(Storage storage) {
+    protected AbstractArrayStorageTest(Storage storage) {
         this.storage = storage;
     }
 
@@ -81,7 +81,7 @@ class AbstractArrayStorageTest {
         Resume[] expectedResume = new Resume[]{RESUME_1, RESUME_2, RESUME_3};
         Resume[] actualResume = storage.getAll();
         Arrays.sort(actualResume);
-        assertSize(3);
+        assertEquals(3, actualResume.length);
         assertArrayEquals(expectedResume, actualResume);
     }
 

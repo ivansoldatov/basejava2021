@@ -2,9 +2,7 @@ package com.ocp.webapp.storage;
 
 import com.ocp.webapp.model.Resume;
 
-/**
- * Array based storage for Resumes
- */
+
 public interface Storage {
 
     void clear();
