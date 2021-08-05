@@ -6,8 +6,9 @@ import com.ocp.webapp.model.Resume;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import java.util.Arrays;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 class AbstractArrayStorageTest {
 
@@ -31,8 +32,8 @@ class AbstractArrayStorageTest {
     void setUp() {
         storage.clear();
         storage.save(RESUME_1);
-        storage.save(RESUME_2);
         storage.save(RESUME_3);
+        storage.save(RESUME_2);
     }
 
     @Test
@@ -76,6 +77,11 @@ class AbstractArrayStorageTest {
 
     @Test
     void getAll() {
+        Resume[] expectedResume=new Resume[]{RESUME_1,RESUME_2,RESUME_3};
+        Resume[] actualResume= storage.getAll();
+        Arrays.sort(actualResume);
+        assertSize(3);
+        assertArrayEquals(expectedResume,actualResume);
     }
 
     @Test
@@ -84,8 +90,13 @@ class AbstractArrayStorageTest {
     }
 
     @Test
-    public void updateNotExist() {
+    public void deleteNotExist() {
         assertThrows(NotExistStorageException.class,()->storage.delete("dummy"));
+    }
+
+    @Test
+    public void updateNotExist() {
+        assertThrows(NotExistStorageException.class,()->storage.update(RESUME_4));
     }
 
     @Test
