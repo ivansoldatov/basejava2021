@@ -2,6 +2,7 @@ package com.ocp.webapp.storage;
 
 import com.ocp.webapp.exception.ExistStorageException;
 import com.ocp.webapp.exception.NotExistStorageException;
+import com.ocp.webapp.exception.StorageException;
 import com.ocp.webapp.model.Resume;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -53,14 +54,14 @@ class AbstractArrayStorageTest {
     void delete() {
         storage.delete(UUID_2);
         assertSize(2);
-        assertThrows(NotExistStorageException.class,()->storage.get(UUID_2));
+        assertThrows(NotExistStorageException.class, () -> storage.get(UUID_2));
     }
 
     @Test
     void update() {
         Resume newResume = new Resume(UUID_1);
         storage.update(newResume);
-        assertEquals(newResume,storage.get(UUID_1));
+        assertEquals(newResume, storage.get(UUID_1));
     }
 
     @Test
@@ -77,31 +78,44 @@ class AbstractArrayStorageTest {
 
     @Test
     void getAll() {
-        Resume[] expectedResume=new Resume[]{RESUME_1,RESUME_2,RESUME_3};
-        Resume[] actualResume= storage.getAll();
+        Resume[] expectedResume = new Resume[]{RESUME_1, RESUME_2, RESUME_3};
+        Resume[] actualResume = storage.getAll();
         Arrays.sort(actualResume);
         assertSize(3);
-        assertArrayEquals(expectedResume,actualResume);
+        assertArrayEquals(expectedResume, actualResume);
     }
 
     @Test
     public void saveExist() {
-        assertThrows(ExistStorageException.class,()->storage.save(RESUME_1));
+        assertThrows(ExistStorageException.class, () -> storage.save(RESUME_1));
     }
 
     @Test
     public void deleteNotExist() {
-        assertThrows(NotExistStorageException.class,()->storage.delete("dummy"));
+        assertThrows(NotExistStorageException.class, () -> storage.delete("dummy"));
     }
 
     @Test
     public void updateNotExist() {
-        assertThrows(NotExistStorageException.class,()->storage.update(RESUME_4));
+        assertThrows(NotExistStorageException.class, () -> storage.update(RESUME_4));
     }
 
     @Test
     public void getNotExist() {
-        assertThrows(NotExistStorageException.class,()->storage.get("dummy"));
+        assertThrows(NotExistStorageException.class, () -> storage.get("dummy"));
+    }
+
+    @Test
+    public void getOverflow() {
+        storage.clear();
+        try {
+            for (int i = 0; i < AbstractArrayStorage.STORAGE_LIMIT; i++) {
+                storage.save(new Resume("Name " + i));
+            }
+        } catch (Exception e) {
+            fail("Test failed!");
+        }
+        assertThrows(StorageException.class, () -> storage.save(new Resume("Last Hero")));
     }
 
     private void assertGet(Resume resume) {
