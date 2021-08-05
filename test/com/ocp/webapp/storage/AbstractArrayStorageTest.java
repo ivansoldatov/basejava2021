@@ -10,7 +10,11 @@ import static org.junit.Assert.*;
 
 public class AbstractArrayStorageTest {
 
-    private Storage storage = new ArrayStorage();
+    private Storage storage ;
+
+    public AbstractArrayStorageTest(Storage storage) {
+        this.storage = storage;
+    }
 
     private static final String UUID_1 = "uuid1";
     private static final String UUID_2 = "uuid2";
