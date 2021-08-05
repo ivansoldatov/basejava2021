@@ -1,5 +1,6 @@
 package com.ocp.webapp.storage;
 
+import com.ocp.webapp.exception.ExistStorageException;
 import com.ocp.webapp.exception.NotExistStorageException;
 import com.ocp.webapp.model.Resume;
 import org.junit.jupiter.api.BeforeEach;
@@ -75,6 +76,21 @@ class AbstractArrayStorageTest {
 
     @Test
     void getAll() {
+    }
+
+    @Test
+    public void saveExist() {
+        assertThrows(ExistStorageException.class,()->storage.save(RESUME_1));
+    }
+
+    @Test
+    public void updateNotExist() {
+        assertThrows(NotExistStorageException.class,()->storage.delete("dummy"));
+    }
+
+    @Test
+    public void getNotExist() {
+        assertThrows(NotExistStorageException.class,()->storage.get("dummy"));
     }
 
     private void assertGet(Resume resume) {
