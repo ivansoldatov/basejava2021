@@ -56,5 +56,31 @@ public class MainCollections {
             System.out.println(entry.getValue());
         }
 
+        System.out.println();
+
+        List<Integer> list = new ArrayList<>(10);
+        list.add(0,0);
+        list.add(1,1);
+        list.add(2,2);
+        list.add(1,4);
+        list.set(1,1);
+        for (int i : list){
+            System.out.println(i);
+        }
+
+        System.out.println();
+
+        List<Double> doubleList = new LinkedList<>();
+        doubleList.add(0.1);
+        doubleList.add(0.2);
+        doubleList.add(0.3);
+        doubleList.add(2,0.22);
+//        doubleList.add(4,0.77);
+        for (double f: doubleList) {
+            System.out.println(f);
+        }
+
+
+
     }
 }
