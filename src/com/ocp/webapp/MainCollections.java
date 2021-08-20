@@ -80,6 +80,7 @@ public class MainCollections {
             System.out.println(f);
         }
 
+        List<Resume> resumes = Arrays.asList(RESUME_1, RESUME_2, RESUME_3);
 
 
     }
