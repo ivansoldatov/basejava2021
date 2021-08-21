@@ -22,18 +22,23 @@ class AbstractStorageTest {
     private static final String UUID_2 = "uuid2";
     private static final String UUID_3 = "uuid3";
     private static final String UUID_4 = "uuid4";
+    private static final String FULL_NAME_1 = "Alex";
+    private static final String FULL_NAME_2 = "Max";
+    private static final String FULL_NAME_3 = "Alex";
+    private static final String FULL_NAME_4 = "Tom";
 
-    private static final Resume RESUME_1 = new Resume(UUID_1);
-    private static final Resume RESUME_2 = new Resume(UUID_2);
-    private static final Resume RESUME_3 = new Resume(UUID_3);
-    private static final Resume RESUME_4 = new Resume(UUID_4);
+
+    private static final Resume RESUME_1 = new Resume(UUID_1, FULL_NAME_1);
+    private static final Resume RESUME_2 = new Resume(UUID_2, FULL_NAME_2);
+    private static final Resume RESUME_3 = new Resume(UUID_3, FULL_NAME_3);
+    private static final Resume RESUME_4 = new Resume(UUID_4, FULL_NAME_4);
 
     @BeforeEach
     void setUp() {
         storage.clear();
         storage.save(RESUME_1);
-        storage.save(RESUME_3);
         storage.save(RESUME_2);
+        storage.save(RESUME_3);
     }
 
     @Test
@@ -77,9 +82,9 @@ class AbstractStorageTest {
 
     @Test
     void getAll() {
-        Resume[] expectedResume = new Resume[]{RESUME_1, RESUME_2, RESUME_3};
+        Resume[] expectedResume = new Resume[]{RESUME_1, RESUME_3, RESUME_2};
         Resume[] actualResume = storage.getAll();
-        Arrays.sort(actualResume);
+        //Arrays.sort(actualResume);
         assertEquals(3, actualResume.length);
         assertArrayEquals(expectedResume, actualResume);
     }
