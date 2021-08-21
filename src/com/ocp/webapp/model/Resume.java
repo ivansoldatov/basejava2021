@@ -1,5 +1,6 @@
 package com.ocp.webapp.model;
 
+import java.rmi.server.UID;
 import java.util.UUID;
 
 
@@ -8,17 +9,13 @@ public class Resume implements Comparable<Resume> {
     private final String uuid;
     private String fullName;
 
-    public Resume() {
-        this(UUID.randomUUID().toString());
-    }
+    public Resume(String fullName) {
+        this(UUID.randomUUID().toString(), fullName);
 
-    public Resume(String uuid) {
-        this.uuid = uuid;
-        this.fullName = "";
     }
 
     public Resume(String uuid, String fullName) {
-        this(uuid);
+        this.uuid = uuid;
         this.fullName = fullName;
     }
 
@@ -57,9 +54,7 @@ public class Resume implements Comparable<Resume> {
     @Override
     public int compareTo(Resume o) {
         int result = fullName.compareTo(o.fullName);
-        if (result == 0) {
-            return uuid.compareTo(o.uuid);
-        } else
-            return result;
+        return result != 0 ? result : uuid.compareTo(o.uuid);
+
     }
 }

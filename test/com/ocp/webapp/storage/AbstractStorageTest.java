@@ -63,7 +63,7 @@ class AbstractStorageTest {
 
     @Test
     void update() {
-        Resume newResume = new Resume(UUID_1);
+        Resume newResume = new Resume(UUID_1,"new Resume");
         storage.update(newResume);
         assertEquals(newResume, storage.get(UUID_1));
     }
