@@ -4,7 +4,11 @@ import com.ocp.webapp.exception.ExistStorageException;
 import com.ocp.webapp.exception.NotExistStorageException;
 import com.ocp.webapp.model.Resume;
 
+import java.util.Comparator;
+
 public abstract class AbstractStorage implements Storage {
+
+    protected final static Comparator<Resume> FULL_NAME_UUID_COMPARATOR = Comparator.comparing(Resume::getFullName).thenComparing(Resume::getUuid);
 
     @Override
     public void save(Resume resume) {

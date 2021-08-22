@@ -4,6 +4,7 @@ import com.ocp.webapp.exception.StorageException;
 import com.ocp.webapp.model.Resume;
 
 import java.util.Arrays;
+import java.util.List;
 
 public abstract class AbstractArrayStorage extends AbstractStorage {
 
@@ -11,6 +12,8 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
 
     protected Resume[] storage = new Resume[STORAGE_LIMIT];
     protected int size = 0;
+
+
 
     public void clear() {
         Arrays.fill(storage, 0, size, null);
@@ -21,8 +24,11 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
         return size;
     }
 
-    public Resume[] getAll() {
-        return Arrays.copyOfRange(storage, 0, size);
+    public List<Resume> getAllSorted() {
+        Resume[] resumes = Arrays.copyOfRange(storage, 0, size);
+        List<Resume> listResume = Arrays.asList(resumes);
+        listResume.sort(FULL_NAME_UUID_COMPARATOR);
+        return listResume;
     }
 
     @Override

@@ -2,10 +2,9 @@ package com.ocp.webapp.storage;
 
 import com.ocp.webapp.model.Resume;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
-public class MapStorage extends AbstractStorage {
+public class MapUuidStorage extends AbstractStorage {
 
     Map<String, Resume> storage = new HashMap<>();
 
@@ -47,8 +46,10 @@ public class MapStorage extends AbstractStorage {
     }
 
     @Override
-    public Resume[] getAll() {
-        return storage.values().toArray(Resume[]::new);
+    public List<Resume> getAllSorted() {
+        List<Resume> listResume = new ArrayList<>(storage.values());
+        listResume.sort(FULL_NAME_UUID_COMPARATOR);
+        return listResume;
     }
 
     @Override

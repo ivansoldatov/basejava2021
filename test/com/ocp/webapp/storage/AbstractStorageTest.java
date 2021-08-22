@@ -7,6 +7,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -63,7 +64,7 @@ class AbstractStorageTest {
 
     @Test
     void update() {
-        Resume newResume = new Resume(UUID_1,"new Resume");
+        Resume newResume = new Resume(UUID_1, "new Resume");
         storage.update(newResume);
         assertEquals(newResume, storage.get(UUID_1));
     }
@@ -81,12 +82,11 @@ class AbstractStorageTest {
     }
 
     @Test
-    void getAll() {
-        Resume[] expectedResume = new Resume[]{RESUME_1, RESUME_3, RESUME_2};
-        Resume[] actualResume = storage.getAll();
-        //Arrays.sort(actualResume);
-        assertEquals(3, actualResume.length);
-        assertArrayEquals(expectedResume, actualResume);
+    void getAllSorted() {
+        List<Resume> expectedList = Arrays.asList(RESUME_1, RESUME_3, RESUME_2);
+        List<Resume> actualList = storage.getAllSorted();
+        assertEquals(3, actualList.size());
+        assertIterableEquals(expectedList, actualList);
     }
 
     @Test
