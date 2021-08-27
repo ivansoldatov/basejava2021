@@ -24,7 +24,7 @@ class AbstractStorageTest {
     private static final String UUID_3 = "uuid3";
     private static final String UUID_4 = "uuid4";
     private static final String FULL_NAME_1 = "Alex";
-    private static final String FULL_NAME_2 = "Max";
+    private static final String FULL_NAME_2 = "Bill";
     private static final String FULL_NAME_3 = "Alex";
     private static final String FULL_NAME_4 = "Tom";
 

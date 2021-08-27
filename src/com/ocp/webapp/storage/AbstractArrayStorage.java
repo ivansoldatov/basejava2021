@@ -14,7 +14,6 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
     protected int size = 0;
 
 
-
     public void clear() {
         Arrays.fill(storage, 0, size, null);
         size = 0;
@@ -24,11 +23,9 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
         return size;
     }
 
-    public List<Resume> getAllSorted() {
+    public List<Resume> doCopyAll() {
         Resume[] resumes = Arrays.copyOfRange(storage, 0, size);
-        List<Resume> listResume = Arrays.asList(resumes);
-        listResume.sort(FULL_NAME_UUID_COMPARATOR);
-        return listResume;
+        return Arrays.asList(resumes);
     }
 
     @Override
