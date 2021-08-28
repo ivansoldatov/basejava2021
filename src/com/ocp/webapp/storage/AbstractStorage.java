@@ -7,10 +7,13 @@ import com.ocp.webapp.model.Resume;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.logging.Logger;
 
 public abstract class AbstractStorage<SK> implements Storage {
 
     protected final static Comparator<Resume> FULL_NAME_UUID_COMPARATOR = Comparator.comparing(Resume::getFullName).thenComparing(Resume::getUuid);
+
+    private static final Logger LOGGER = Logger.getLogger(AbstractStorage.class.getName());
 
     protected abstract SK getSearchKey(String uuid);
 
@@ -28,6 +31,7 @@ public abstract class AbstractStorage<SK> implements Storage {
 
     @Override
     public void save(Resume resume) {
+        LOGGER.info("Save: " + resume);
         SK searchKey = getNotExistStorageException(resume.getUuid());
         doSave(searchKey, resume);
     }
