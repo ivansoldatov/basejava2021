@@ -5,7 +5,7 @@ import com.ocp.webapp.model.Resume;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ListStorage extends AbstractStorage {
+public class ListStorage extends AbstractStorage<Integer> {
 
     List<Resume> storage = new ArrayList<>();
 
@@ -15,17 +15,12 @@ public class ListStorage extends AbstractStorage {
     }
 
     @Override
-    public List<Resume> doCopyAll() {
-        return new ArrayList<>(storage);
-    }
-
-    @Override
     public int size() {
         return storage.size();
     }
 
     @Override
-    protected Object getSearchKey(String uuid) {
+    protected Integer getSearchKey(String uuid) {
         for (int i = 0; i < storage.size(); i++) {
             if (storage.get(i).getUuid().equals(uuid)) {
                 return i;
@@ -35,27 +30,33 @@ public class ListStorage extends AbstractStorage {
     }
 
     @Override
-    protected boolean isExist(Object searchKey) {
+    public List<Resume> doCopyAll() {
+        return new ArrayList<>(storage);
+    }
+
+
+    @Override
+    protected boolean isExist(Integer searchKey) {
         return searchKey != null;
     }
 
     @Override
-    protected void doSave(Object searchKey, Resume resume) {
+    protected void doSave(Integer searchKey, Resume resume) {
         storage.add(resume);
     }
 
     @Override
-    protected void doUpdate(Object searchKey, Resume resume) {
-        storage.set((int) searchKey, resume);
+    protected void doUpdate(Integer searchKey, Resume resume) {
+        storage.set(searchKey, resume);
     }
 
     @Override
-    protected void doDelete(Object searchKey) {
+    protected void doDelete(Integer searchKey) {
         storage.remove((int) searchKey);
     }
 
     @Override
-    protected Resume doGet(Object searchKey) {
-        return storage.get((int) searchKey);
+    protected Resume doGet(Integer searchKey) {
+        return storage.get(searchKey);
     }
 }

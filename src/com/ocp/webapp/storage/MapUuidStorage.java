@@ -4,40 +4,40 @@ import com.ocp.webapp.model.Resume;
 
 import java.util.*;
 
-public class MapUuidStorage extends AbstractStorage {
+public class MapUuidStorage extends AbstractStorage<String> {
 
     Map<String, Resume> storage = new HashMap<>();
 
     @Override
-    protected Object getSearchKey(String uuid) {
+    protected String getSearchKey(String uuid) {
         return uuid;
     }
 
     @Override
-    protected boolean isExist(Object uuid) {
-        return storage.containsKey((String) uuid);
+    protected boolean isExist(String uuid) {
+        return storage.containsKey(uuid);
     }
 
     @Override
-    protected void doSave(Object uuid, Resume r) {
-        storage.put((String) uuid, r);
+    protected void doSave(String uuid, Resume r) {
+        storage.put(uuid, r);
     }
 
     @Override
-    protected void doUpdate(Object uuid, Resume r) {
+    protected void doUpdate(String uuid, Resume r) {
         doSave(uuid, r);
 
     }
 
     @Override
-    protected void doDelete(Object uuid) {
-        storage.remove((String) uuid);
+    protected void doDelete(String uuid) {
+        storage.remove(uuid);
 
     }
 
     @Override
-    protected Resume doGet(Object uuid) {
-        return storage.get((String) uuid);
+    protected Resume doGet(String uuid) {
+        return storage.get(uuid);
     }
 
     @Override

@@ -6,7 +6,7 @@ import com.ocp.webapp.model.Resume;
 import java.util.Arrays;
 import java.util.List;
 
-public abstract class AbstractArrayStorage extends AbstractStorage {
+public abstract class AbstractArrayStorage extends AbstractStorage<Integer> {
 
     protected static final int STORAGE_LIMIT = 10000;
 
@@ -29,40 +29,40 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
     }
 
     @Override
-    protected void doSave(Object searchKey, Resume resume) {
+    protected void doSave(Integer searchKey, Resume resume) {
         if (size >= STORAGE_LIMIT) {
             throw new StorageException("Storage overflow", resume.getUuid());
         } else {
-            insertElement(resume, (Integer) searchKey);
+            insertElement(resume,searchKey);
             size++;
         }
     }
 
     @Override
-    protected Resume doGet(Object searchKey) {
-        return storage[(int) searchKey];
+    protected Resume doGet(Integer searchKey) {
+        return storage[searchKey];
     }
 
     @Override
-    protected void doUpdate(Object searchKey, Resume resume) {
-        storage[(int) searchKey] = resume;
+    protected void doUpdate(Integer searchKey, Resume resume) {
+        storage[searchKey] = resume;
     }
 
     @Override
-    protected void doDelete(Object searchKey) {
-        fillDeletedElement((int) searchKey);
+    protected void doDelete(Integer searchKey) {
+        fillDeletedElement(searchKey);
         storage[size - 1] = null;
         size--;
     }
 
     @Override
-    protected Object getSearchKey(String uuid) {
+    protected Integer getSearchKey(String uuid) {
         return getIndex(uuid);
     }
 
     @Override
-    protected boolean isExist(Object searchKey) {
-        return ((Integer) searchKey >= 0);
+    protected boolean isExist(Integer searchKey) {
+        return (searchKey >= 0);
     }
 
     protected abstract void insertElement(Resume resume, int index);
