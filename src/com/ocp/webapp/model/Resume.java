@@ -3,14 +3,15 @@ package com.ocp.webapp.model;
 import org.jetbrains.annotations.NotNull;
 
 import java.rmi.server.UID;
-import java.util.Objects;
-import java.util.UUID;
+import java.util.*;
 
 
 public class Resume implements Comparable<Resume> {
 
     private final String uuid;
     private String fullName;
+    private EnumMap<ContactType, String> contacts;
+    private EnumMap<SectionType, AbstractSection> sections;
 
     public Resume(@NotNull String fullName) {
         this(UUID.randomUUID().toString(), fullName);
