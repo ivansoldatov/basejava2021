@@ -13,6 +13,24 @@ public class Resume implements Comparable<Resume> {
     private EnumMap<ContactType, String> contacts;
     private EnumMap<SectionType, AbstractSection> sections;
 
+    public EnumMap<ContactType, String> getContacts() {
+        return contacts;
+    }
+
+    public void setContacts(EnumMap<ContactType, String> contacts) {
+        this.contacts = contacts;
+    }
+
+    public EnumMap<SectionType, AbstractSection> getSections() {
+        return sections;
+    }
+
+    public void setSections(EnumMap<SectionType, AbstractSection> sections) {
+        this.sections = sections;
+    }
+
+
+
     public Resume(@NotNull String fullName) {
         this(UUID.randomUUID().toString(), fullName);
 
