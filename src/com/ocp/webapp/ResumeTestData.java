@@ -9,6 +9,8 @@ import java.util.*;
 public class ResumeTestData {
 
     public static Resume resume = new Resume("Григорий Кислин");
+    public static EnumMap<ContactType, String> contacts = new EnumMap<ContactType, String>(ContactType.class);
+    public static EnumMap<SectionType, AbstractSection> sections = new EnumMap<>(SectionType.class);
 
     private static String phone = "+7(921) 855-0482";
     private static String mail = "gkislin@yandex.ru";
@@ -17,21 +19,21 @@ public class ResumeTestData {
     private static String linkedin = "https://www.linkedin.com/in/gkislin";
     private static String skype = "grigory.kislin";
 
-    private static String objectiveText = "Ведущий стажировок и корпоративного обучения по Java Web и Enterprise технологиям";
-    private static String personalText = "Аналитический склад ума, сильная логика, креативность, инициативность. Пурист кода и архитектуры.";
+    private static String objectiveText = "Название позиции на которую претендую";
+    private static String personalText = "Описание личных качеств";
 
-    private static String achievementItem_1 = "С 2013 года: разработка проектов \"Разработка Web приложения\",\"Java Enterprise\", \"Многомодульный maven. Многопоточность. XML (JAXB/StAX). Веб сервисы (JAX-RS/SOAP). Удаленное взаимодействие (JMS/AKKA)\". Организация онлайн стажировок и ведение проектов. Более 1000 выпускников.";
-    private static String achievementItem_2 = "Реализация двухфакторной аутентификации для онлайн платформы управления проектами Wrike. Интеграция с Twilio, DuoSecurity, Google Authenticator, Jira, Zendesk.";
-    private static String achievementItem_3 = "Налаживание процесса разработки и непрерывной интеграции ERP системы River BPM. Интеграция с 1С, Bonita BPM, CMIS, LDAP. Разработка приложения управления окружением на стеке: Scala/Play/Anorm/JQuery. Разработка SSO аутентификации и авторизации различных ERP модулей, интеграция CIFS/SMB java сервера.";
+    private static String achievementItem_1 = "Достижения номер 1";
+    private static String achievementItem_2 = "Достижения номер 2";
+    private static String achievementItem_3 = "Достижения номер 3";
     private static List<String> achievementList = Arrays.asList(achievementItem_1, achievementItem_2, achievementItem_3);
 
-    private static String qualificationItm_1 = "JEE AS: GlassFish (v2.1, v3), OC4J, JBoss, Tomcat, Jetty, WebLogic, WSO2";
-    private static String qualificationItm_2 = "Version control: Subversion, Git, Mercury, ClearCase, Perforce";
-    private static String qualificationItm_3 = "DB: PostgreSQL(наследование, pgplsql, PL/Python), Redis (Jedis), H2, Oracle";
+    private static String qualificationItm_1 = "Описание квалификации 1";
+    private static String qualificationItm_2 = "Описание квалификации 2";
+    private static String qualificationItm_3 = "Описание квалификации 3";
     private static List<String> qualificationList = Arrays.asList(qualificationItm_1, qualificationItm_2, qualificationItm_3);
 
-    private static Organization.Link Link_Organization_1 = new Organization.Link("Компания-1", "Url link Компании-1");
-    private static Organization.Link Link_Organization_2 = new Organization.Link("Компания-2", "Url link Компании-2");
+    private static Organization.Link Link_Organization_1 = new Organization.Link("Компания-1", "Url Компании-1");
+    private static Organization.Link Link_Organization_2 = new Organization.Link("Компания-2", "Url Компании-2");
     private static Organization.Link Link_Organization_3 = new Organization.Link("Компания-3");
 
     static Experience experience_1 = new Experience(DateUtil.of(1997, Month.SEPTEMBER), DateUtil.of(2005, Month.JUNE), "Должность в Компании-1", "Опыт в Компании-1");
@@ -42,7 +44,7 @@ public class ResumeTestData {
     private static Organization organization_2 = new Organization(Link_Organization_2, Arrays.asList(experience_2));
     private static Organization organization_3 = new Organization(Link_Organization_3, Arrays.asList(experience_3));
     private static List<Organization> organizationsList = Arrays.asList(organization_1, organization_2, organization_3);
-    //-----------------------------
+
     private static Organization.Link Link_Education_1 = new Organization.Link("Институт-1", "Url link Институт-1");
     private static Organization.Link Link_Education_2 = new Organization.Link("Институт-2");
     private static Organization.Link Link_Education_3 = new Organization.Link("Интститут-3", "Url link Институт-3");
@@ -57,18 +59,12 @@ public class ResumeTestData {
     private static Organization University_3 = new Organization(Link_Organization_3, Arrays.asList(education_3, education_4));
     private static List<Organization> educationList = Arrays.asList(University_1, University_2, University_3);
 
-
-    public static EnumMap<ContactType, String> contacts = new EnumMap<ContactType, String>(ContactType.class);
-    public static EnumMap<SectionType, AbstractSection> sections = new EnumMap<>(SectionType.class);
-
-
     private static AbstractSection objectiveSection = new TextSection(objectiveText);
     private static AbstractSection personalSection = new TextSection(personalText);
     private static AbstractSection achievementSection = new ListSection(achievementList);
     private static AbstractSection qualificationSection = new ListSection(qualificationList);
-    private static AbstractSection organizationSection = new OrganizationSection(organizationsList);
+    private static AbstractSection experienceSection = new OrganizationSection(organizationsList);
     private static AbstractSection educationSection = new OrganizationSection(educationList);
-
 
     public static void main(String[] args) {
         contacts.put(ContactType.PHONE, phone);
@@ -77,7 +73,14 @@ public class ResumeTestData {
         contacts.put(ContactType.HOMEPAGE, homepage);
         contacts.put(ContactType.LINKEDIN, linkedin);
         contacts.put(ContactType.SKYPE, skype);
+        sections.put(SectionType.OBJECTIVE, objectiveSection);
+        sections.put(SectionType.PERSONAL, personalSection);
+        sections.put(SectionType.ACHIEVEMENT, achievementSection);
+        sections.put(SectionType.QUALIFICATIONS, qualificationSection);
+        sections.put(SectionType.EXPERIENCE, experienceSection);
+        sections.put(SectionType.EDUCATION, educationSection);
         resume.setContacts(contacts);
+        resume.setSections(sections);
 
 
     }
