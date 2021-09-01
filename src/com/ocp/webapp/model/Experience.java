@@ -15,6 +15,10 @@ public class Experience {
         this.description = description;
     }
 
+    public Experience(LocalDate startDate, LocalDate endDate, String title) {
+        this(startDate, endDate, title, "");
+    }
+
     public LocalDate getStartDate() {
         return startDate;
     }

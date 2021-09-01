@@ -27,9 +27,14 @@ public class Organization {
         this.experience = experience;
     }
 
-    class Link {
+    public static class Link {
         private String name;
         private String url;
+
+
+        public Link(String name) {
+            this(name, "");
+        }
 
         public Link(String name, String url) {
             this.name = name;
