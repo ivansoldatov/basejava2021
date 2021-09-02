@@ -3,6 +3,8 @@ package com.ocp.webapp;
 import com.ocp.webapp.model.*;
 import com.ocp.webapp.util.DateUtil;
 
+import javax.swing.text.html.parser.Entity;
+import java.awt.datatransfer.StringSelection;
 import java.time.Month;
 import java.util.*;
 
@@ -36,27 +38,27 @@ public class ResumeTestData {
     private static Organization.Link Link_Organization_2 = new Organization.Link("Компания-2", "Url Компании-2");
     private static Organization.Link Link_Organization_3 = new Organization.Link("Компания-3");
 
-    static Experience experience_1 = new Experience(DateUtil.of(1997, Month.SEPTEMBER), DateUtil.of(2005, Month.JUNE), "Должность в Компании-1", "Опыт в Компании-1");
-    static Experience experience_2 = new Experience(DateUtil.of(2005, Month.JANUARY), DateUtil.of(2007, Month.FEBRUARY), "Должность в Компании-2", "Опыт в Компании-3");
-    static Experience experience_3 = new Experience(DateUtil.of(2007, Month.MARCH), DateUtil.of(2008, Month.JUNE), "Должность в Компании-3", "Опыт в Компании-3");
+    private static Experience experience_1 = new Experience(DateUtil.of(1997, Month.SEPTEMBER), DateUtil.of(2005, Month.JUNE), "Должность в Компании-1", "Опыт в Компании-1");
+    private static Experience experience_2 = new Experience(DateUtil.of(2005, Month.JANUARY), DateUtil.of(2007, Month.FEBRUARY), "Должность в Компании-2", "Опыт в Компании-3");
+    private static Experience experience_3 = new Experience(DateUtil.of(2007, Month.MARCH), DateUtil.of(2008, Month.JUNE), "Должность в Компании-3", "Опыт в Компании-3");
 
     private static Organization organization_1 = new Organization(Link_Organization_1, Arrays.asList(experience_1));
     private static Organization organization_2 = new Organization(Link_Organization_2, Arrays.asList(experience_2));
     private static Organization organization_3 = new Organization(Link_Organization_3, Arrays.asList(experience_3));
     private static List<Organization> organizationsList = Arrays.asList(organization_1, organization_2, organization_3);
 
-    private static Organization.Link Link_Education_1 = new Organization.Link("Институт-1", "Url link Институт-1");
+    private static Organization.Link Link_Education_1 = new Organization.Link("Институт-1", "Url Институт-1");
     private static Organization.Link Link_Education_2 = new Organization.Link("Институт-2");
-    private static Organization.Link Link_Education_3 = new Organization.Link("Интститут-3", "Url link Институт-3");
+    private static Organization.Link Link_Education_3 = new Organization.Link("Интститут-3", "Url Институт-3");
 
     private static Experience education_1 = new Experience(DateUtil.of(1997, Month.SEPTEMBER), DateUtil.of(2000, Month.JUNE), "Образование-1 в Институте-1");
     private static Experience education_2 = new Experience(DateUtil.of(2000, Month.JANUARY), DateUtil.of(2005, Month.FEBRUARY), "Образование-2 в Институте-2");
     private static Experience education_3 = new Experience(DateUtil.of(2005, Month.MARCH), DateUtil.of(2008, Month.JUNE), "Образование-3 в Институте-3");
     private static Experience education_4 = new Experience(DateUtil.of(2009, Month.MARCH), DateUtil.of(2010, Month.JUNE), "Образование-4 в Институте-3");
 
-    private static Organization University_1 = new Organization(Link_Organization_1, Arrays.asList(education_1));
-    private static Organization University_2 = new Organization(Link_Organization_2, Arrays.asList(education_2));
-    private static Organization University_3 = new Organization(Link_Organization_3, Arrays.asList(education_3, education_4));
+    private static Organization University_1 = new Organization(Link_Education_1, Arrays.asList(education_1));
+    private static Organization University_2 = new Organization(Link_Education_2, Arrays.asList(education_2));
+    private static Organization University_3 = new Organization(Link_Education_3, Arrays.asList(education_3, education_4));
     private static List<Organization> educationList = Arrays.asList(University_1, University_2, University_3);
 
     private static AbstractSection objectiveSection = new TextSection(objectiveText);
@@ -82,6 +84,49 @@ public class ResumeTestData {
         resume.setContacts(contacts);
         resume.setSections(sections);
 
+        printResume(resume);
+    }
+
+    private static void printResume(Resume resume) {
+        System.out.println(resume.getUuid());
+        System.out.println(resume.getFullName());
+        for (Map.Entry<ContactType, String> entry : resume.getContacts().entrySet()) {
+            System.out.println(entry.getKey() + ": " + entry.getValue());
+        }
+        System.out.println();
+
+        for (Map.Entry<SectionType, AbstractSection> entry : resume.getSections().entrySet()) {
+            SectionType sectionType = entry.getKey();
+            System.out.println(sectionType + ": ");
+            switch (sectionType) {
+                case OBJECTIVE:
+                case PERSONAL:
+                    TextSection textSection = (TextSection) entry.getValue();
+                    System.out.println(textSection.getContent());
+                    System.out.println();
+                    break;
+                case ACHIEVEMENT:
+                case QUALIFICATIONS:
+                    ListSection listSection = (ListSection) entry.getValue();
+                    for (String s : listSection.getItems()) {
+                        System.out.println(s);
+                    }
+                    System.out.println();
+                    break;
+                case EXPERIENCE:
+                case EDUCATION:
+                    OrganizationSection organizationSection = (OrganizationSection) entry.getValue();
+                    for (Organization org : organizationSection.getListOrganization()) {
+                        System.out.println(org.getHomePage().getName() + ": " + org.getHomePage().getUrl());
+                        for (Experience exp : org.getExperience()) {
+                            System.out.println(exp.getStartDate() + " - " + exp.getEndDate() + "  " + exp.getTitle());
+                            System.out.println(exp.getDescription());
+                        }
+                    }
+                    System.out.println();
+                    break;
+            }
+        }
 
     }
 

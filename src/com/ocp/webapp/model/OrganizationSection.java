@@ -3,17 +3,17 @@ package com.ocp.webapp.model;
 import java.util.List;
 
 public class OrganizationSection extends AbstractSection {
-    private List<Organization> organizations;
+    private List<Organization> listOrganization;
 
-    public OrganizationSection(List<Organization> organizations) {
-        this.organizations = organizations;
+    public OrganizationSection(List<Organization> listOrganization) {
+        this.listOrganization = listOrganization;
     }
 
-    public List<Organization> getOrganizations() {
-        return organizations;
+    public List<Organization> getListOrganization() {
+        return listOrganization;
     }
 
-    public void setOrganizations(List<Organization> organizations) {
-        this.organizations = organizations;
+    public void setListOrganization(List<Organization> listOrganization) {
+        this.listOrganization = listOrganization;
     }
 }
