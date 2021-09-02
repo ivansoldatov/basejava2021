@@ -126,7 +126,11 @@ public class ResumeTestData {
                     for (Organization org : organizationSection.getListOrganization()) {
                         System.out.println(org.getHomePage().getName() + ": " + org.getHomePage().getUrl());
                         for (Experience exp : org.getExperience()) {
-                            System.out.println(exp.getStartDate() + " - " + exp.getEndDate() + "  " + exp.getTitle());
+                            int startMonth = exp.getStartDate().getMonthValue();
+                            int startYear = exp.getStartDate().getYear();
+                            int endMonth = exp.getStartDate().getMonthValue();
+                            int endYear = exp.getStartDate().getYear();
+                            System.out.printf("%d.%d-%d.%d   %s\n", startMonth, startYear, endMonth, endYear, exp.getTitle());
                             System.out.println(exp.getDescription());
                         }
                     }
