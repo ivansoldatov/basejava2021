@@ -3,8 +3,6 @@ package com.ocp.webapp;
 import com.ocp.webapp.model.*;
 import com.ocp.webapp.util.DateUtil;
 
-import javax.swing.text.html.parser.Entity;
-import java.awt.datatransfer.StringSelection;
 import java.time.Month;
 import java.util.*;
 
@@ -69,6 +67,10 @@ public class ResumeTestData {
     private static AbstractSection educationSection = new OrganizationSection(educationList);
 
     public static void main(String[] args) {
+        printResume(getFillResume("000001", "григорий Кослин"));
+    }
+
+    private static void fillResume(Resume resume) {
         contacts.put(ContactType.PHONE, phone);
         contacts.put(ContactType.MAIL, mail);
         contacts.put(ContactType.GITHUB, github);
@@ -84,7 +86,12 @@ public class ResumeTestData {
         resume.setContacts(contacts);
         resume.setSections(sections);
 
-        printResume(resume);
+    }
+
+    public static Resume getFillResume(String uuid, String fullName) {
+        Resume resume = new Resume(uuid, fullName);
+        fillResume(resume);
+        return resume;
     }
 
     private static void printResume(Resume resume) {
