@@ -26,6 +26,33 @@ public class Organization {
         return experience;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Organization that = (Organization) o;
+
+        if (!homePage.equals(that.homePage)) return false;
+        return experience.equals(that.experience);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = homePage.hashCode();
+        result = 31 * result + experience.hashCode();
+        return result;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder(homePage.toString());
+        for (Experience exp : experience) {
+            sb.append(exp.toString());
+        }
+        return sb.toString();
+    }
+
 
     public static class Link {
         private final String name;
@@ -69,14 +96,6 @@ public class Organization {
         }
     }
 
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder(homePage.toString());
-        for (Experience exp : experience) {
-            sb.append(exp.toString());
-        }
-        return sb.toString();
-    }
 
 }
 

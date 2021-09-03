@@ -67,6 +67,7 @@ public class ResumeTestData {
     private static AbstractSection educationSection = new OrganizationSection(educationList);
 
     public static void main(String[] args) {
+
         printResume(getFillResume("000001", "Григорий Кослин"));
     }
 
