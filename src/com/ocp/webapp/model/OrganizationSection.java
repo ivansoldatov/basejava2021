@@ -34,10 +34,10 @@ public class OrganizationSection extends AbstractSection {
 
     @Override
     public String toString() {
-        return organizations.toString();
+        StringBuilder sb = new StringBuilder();
+        for (Organization org : organizations) {
+            sb.append(org.toString());
+        }
+        return sb.toString();
     }
-
-    //    public void setListOrganization(List<Organization> listOrganization) {
-//        this.listOrganization = listOrganization;
-//    }
 }

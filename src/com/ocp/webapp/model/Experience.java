@@ -62,11 +62,6 @@ public class Experience {
 
     @Override
     public String toString() {
-        return "Experience{" +
-                "startDate=" + startDate +
-                ", endDate=" + endDate +
-                ", title='" + title + '\'' +
-                ", description='" + description + '\'' +
-                '}';
+        return startDate + " - " + endDate + "  " + title + '\n' + description + '\n';
     }
 }

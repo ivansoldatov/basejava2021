@@ -7,8 +7,8 @@ import java.util.List;
 import java.util.Objects;
 
 public class Organization {
-    private Link homePage;
-    private List<Experience> experience;
+    private final Link homePage;
+    private final List<Experience> experience;
 
     public Organization(@NotNull Link homePage, @NotNull List<Experience> experience) {
         Objects.requireNonNull(homePage, "Link must be not null");
@@ -65,8 +65,17 @@ public class Organization {
 
         @Override
         public String toString() {
-            return name + "   " + url;
+            return name + "   " + url + '\n';
         }
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder(homePage.toString());
+        for (Experience exp : experience) {
+            sb.append(exp.toString());
+        }
+        return sb.toString();
     }
 
 }
