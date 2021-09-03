@@ -123,7 +123,7 @@ public class ResumeTestData {
                 case EXPERIENCE:
                 case EDUCATION:
                     OrganizationSection organizationSection = (OrganizationSection) entry.getValue();
-                    for (Organization org : organizationSection.getListOrganization()) {
+                    for (Organization org : organizationSection.getOrganizations()) {
                         System.out.println(org.getHomePage().getName() + ": " + org.getHomePage().getUrl());
                         for (Experience exp : org.getExperience()) {
                             int startMonth = exp.getStartDate().getMonthValue();

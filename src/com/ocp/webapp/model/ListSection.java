@@ -1,11 +1,15 @@
 package com.ocp.webapp.model;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.List;
+import java.util.Objects;
 
 public class ListSection extends AbstractSection {
-    private List<String> items;
+    private final List<String> items;
 
-    public ListSection(List<String> items) {
+    public ListSection(@NotNull List<String> items) {
+        Objects.requireNonNull(items, "content must not be null");
         this.items = items;
     }
 
@@ -13,7 +17,23 @@ public class ListSection extends AbstractSection {
         return items;
     }
 
-    public void setItems(List<String> items) {
-        this.items = items;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        ListSection that = (ListSection) o;
+
+        return items.equals(that.items);
+    }
+
+    @Override
+    public int hashCode() {
+        return items.hashCode();
+    }
+
+    @Override
+    public String toString() {
+        return items.toString();
     }
 }

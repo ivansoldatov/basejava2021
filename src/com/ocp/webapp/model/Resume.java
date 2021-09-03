@@ -9,27 +9,9 @@ import java.util.*;
 public class Resume implements Comparable<Resume> {
 
     private final String uuid;
-    private String fullName;
-    private EnumMap<ContactType, String> contacts;
-    private EnumMap<SectionType, AbstractSection> sections;
-
-    public EnumMap<ContactType, String> getContacts() {
-        return contacts;
-    }
-
-    public void setContacts(EnumMap<ContactType, String> contacts) {
-        this.contacts = contacts;
-    }
-
-    public EnumMap<SectionType, AbstractSection> getSections() {
-        return sections;
-    }
-
-    public void setSections(EnumMap<SectionType, AbstractSection> sections) {
-        this.sections = sections;
-    }
-
-
+    private final String fullName;
+    private final Map<ContactType, String> contacts = new EnumMap<>(ContactType.class);
+    private final Map<SectionType, AbstractSection> sections = new EnumMap<>(SectionType.class);
 
     public Resume(@NotNull String fullName) {
         this(UUID.randomUUID().toString(), fullName);
@@ -50,6 +32,31 @@ public class Resume implements Comparable<Resume> {
     public String getFullName() {
         return fullName;
     }
+
+    public String getContact(ContactType type) {
+        return contacts.get(type);
+    }
+
+    public AbstractSection getSection(SectionType type) {
+        return sections.get(type);
+    }
+
+    public Map<ContactType, String> getContacts() {
+        return contacts;
+    }
+
+//    public void setContacts(EnumMap<ContactType, String> contacts) {
+//        this.contacts = contacts;
+//    }
+
+    public Map<SectionType, AbstractSection> getSections() {
+        return sections;
+    }
+
+//    public void setSections(EnumMap<SectionType, AbstractSection> sections) {
+//        this.sections = sections;
+//    }
+
 
     @Override
     public boolean equals(Object o) {
