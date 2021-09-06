@@ -4,6 +4,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
 public class Experience {
@@ -62,6 +63,7 @@ public class Experience {
 
     @Override
     public String toString() {
-        return startDate + " - " + endDate + "  " + title + '\n' + description + '\n';
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("MM/YYYY");
+        return dtf.format(startDate) + " - " + dtf.format(endDate) + "  " + title + '\n' + description + '\n';
     }
 }

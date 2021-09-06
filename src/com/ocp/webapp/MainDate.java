@@ -33,6 +33,11 @@ public class MainDate {
 
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/YY");
         System.out.println(dtf.format(ldt));
+
+        LocalDate localDate = LocalDate.of(2021,1,23);
+        System.out.println(localDate);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/YYYY");
+        System.out.println(formatter.format(localDate));
     }
 
 }
