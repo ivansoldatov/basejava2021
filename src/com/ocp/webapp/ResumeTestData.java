@@ -8,10 +8,6 @@ import java.util.*;
 
 public class ResumeTestData {
 
-    public static Resume resume = new Resume("Григорий Кислин");
-//    public static EnumMap<ContactType, String> contacts = new EnumMap<>(ContactType.class);
-//    public static EnumMap<SectionType, AbstractSection> sections = new EnumMap<>(SectionType.class);
-
     private static String phone = "+7(921) 855-0482";
     private static String mail = "gkislin@yandex.ru";
     private static String github = "https://github.com/gkislin";
@@ -68,16 +64,22 @@ public class ResumeTestData {
 
     public static void main(String[] args) {
 
-        printResume(getFillResume("000001", "Григорий Кослин"));
+        printResume(getResumeFull("000001", "Григорий Кослин"));
     }
 
-    private static void fillResume(Resume resume) {
+    public static Resume getResumeContacts(String uuid, String fullName) {
+        Resume resume = new Resume(uuid, fullName);
         resume.addContact(ContactType.PHONE, phone);
         resume.addContact(ContactType.MAIL, mail);
         resume.addContact(ContactType.GITHUB, github);
         resume.addContact(ContactType.HOMEPAGE, homepage);
         resume.addContact(ContactType.LINKEDIN, linkedin);
         resume.addContact(ContactType.SKYPE, skype);
+        return resume;
+    }
+
+    public static Resume getResumeFull(String uuid, String fullName) {
+        Resume resume = getResumeContacts(uuid, fullName);
         resume.addSection(SectionType.OBJECTIVE, objectiveSection);
         resume.addSection(SectionType.OBJECTIVE, objectiveSection);
         resume.addSection(SectionType.PERSONAL, personalSection);
@@ -85,11 +87,6 @@ public class ResumeTestData {
         resume.addSection(SectionType.QUALIFICATIONS, qualificationSection);
         resume.addSection(SectionType.EXPERIENCE, experienceSection);
         resume.addSection(SectionType.EDUCATION, educationSection);
-    }
-
-    public static Resume getFillResume(String uuid, String fullName) {
-        Resume resume = new Resume(uuid, fullName);
-        fillResume(resume);
         return resume;
     }
 
