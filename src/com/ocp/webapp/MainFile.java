@@ -7,8 +7,11 @@ public class MainFile {
         String filePath = "./.gitignore";
         String myFile = "./temp/my.txt";
         try {
-            File file = new File(filePath);
+            File file = new File(myFile);
             System.out.println(file.getCanonicalPath());
+            System.out.println(file.getAbsolutePath());
+            System.out.println(file.getPath());
+            System.out.println("----------------------");
             System.out.println(file.isDirectory());
             File dir = new File("./src/com/ocp/webapp");
             System.out.println(dir.isDirectory());

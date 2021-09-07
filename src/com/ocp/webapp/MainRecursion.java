@@ -1,9 +1,9 @@
-package com.ocp.webapp.storage;
+package com.ocp.webapp;
 
 import java.io.File;
 import java.io.IOException;
 
-public class Recursion {
+public class MainRecursion {
     public static void main(String[] args) throws IOException {
         String path = "./src";
         File directory = new File(path);
