@@ -7,21 +7,20 @@ public class Recursion {
     public static void main(String[] args) throws IOException {
         String path = "./src";
         File directory = new File(path);
-        readFile(directory);
+        StringBuilder sb = new StringBuilder();
+        int count = 0;
+        readFile(directory, sb, count);
 
     }
 
-    private static void readFile(File dir) throws IOException {
-        if (dir.isDirectory()) {
-            for (File f : dir.listFiles()) {
-                if (f.isFile()) {
-                    System.out.println(f.getCanonicalPath());
-                } else {
-                    System.out.println(dir);
-                    readFile(f);
-                }
+    private static void readFile(File dir, StringBuilder sb, int count) throws IOException {
+        for (File f : dir.listFiles()) {
+            if (f.isFile()) {
+                System.out.println(sb.toString() + f.getCanonicalPath());
+            } else {
+                System.out.println(sb.toString() + f.getCanonicalPath());
+                readFile(f, sb, count);
             }
-
         }
     }
 
