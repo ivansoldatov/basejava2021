@@ -45,10 +45,10 @@ public class ResumeTestData {
     private static Link Link_Education_2 = new Link("Институт-2", null);
     private static Link Link_Education_3 = new Link("Интститут-3", "Url Институт-3");
 
-    private static Organization.Experience education_1 = new Organization.Experience(DateUtil.of(1997, Month.SEPTEMBER), DateUtil.of(2000, Month.JUNE), "Образование-1 в Институте-1", null);
-    private static Organization.Experience education_2 = new Organization.Experience(DateUtil.of(2000, Month.JANUARY), DateUtil.of(2005, Month.FEBRUARY), "Образование-2 в Институте-2", null);
-    private static Organization.Experience education_3 = new Organization.Experience(DateUtil.of(2005, Month.MARCH), DateUtil.of(2008, Month.JUNE), "Образование-3 в Институте-3", null);
-    private static Organization.Experience education_4 = new Organization.Experience(DateUtil.of(2009, Month.MARCH), "Образование-4 в Институте-3", null);
+    private static Organization.Experience education_1 = new Organization.Experience(1997, Month.SEPTEMBER, 2000, Month.JUNE, "Образование-1 в Институте-1");
+    private static Organization.Experience education_2 = new Organization.Experience(2000, Month.JANUARY, 2005, Month.FEBRUARY, "Образование-2 в Институте-2");
+    private static Organization.Experience education_3 = new Organization.Experience(2005, Month.MARCH, 2008, Month.JUNE, "Образование-3 в Институте-3");
+    private static Organization.Experience education_4 = new Organization.Experience(2009, Month.MARCH, 2010, Month.FEBRUARY,"Образование-4 в Институте-3");
 
     private static Organization University_1 = new Organization(Link_Education_1, Arrays.asList(education_1));
     private static Organization University_2 = new Organization(Link_Education_2, Arrays.asList(education_2));
@@ -64,7 +64,7 @@ public class ResumeTestData {
 
     public static void main(String[] args) {
 
-        printResume(getResumeFull("000001", "Григорий Кослин"));
+        printResume(getResumeFull("000001", "Григорий Кислин"));
     }
 
     public static Resume getResumeContacts(String uuid, String fullName) {

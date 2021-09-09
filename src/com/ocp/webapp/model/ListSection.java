@@ -2,11 +2,17 @@ package com.ocp.webapp.model;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
 public class ListSection extends AbstractSection {
     private final List<String> items;
+
+    public ListSection(String... items) {
+        this(Arrays.asList(items));
+    }
+
 
     public ListSection(@NotNull List<String> items) {
         Objects.requireNonNull(items, "content must not be null");

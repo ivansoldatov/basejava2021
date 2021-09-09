@@ -5,13 +5,24 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.time.LocalDate;
+import java.time.Month;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
+import static com.ocp.webapp.util.DateUtil.of;
+import static com.ocp.webapp.util.DateUtil.NOW;
+
+
 public class Organization {
     private final Link homePage;
-    private final List<Experience> experience;
+    private List<Experience> experience;
+
+    public Organization(String name, String url, Experience... experiences) {
+        this(new Link(name, url), Arrays.asList(experiences));
+    }
 
     public Organization(@NotNull Link homePage, @NotNull List<Experience> experience) {
         Objects.requireNonNull(homePage, "Link must be not null");
@@ -63,8 +74,20 @@ public class Organization {
         private final String title;
         private final String description;
 
-        public Experience(LocalDate startDate, String title, String description) {
-            this(startDate, DateUtil.NOW, title, description);
+        public Experience(int startYear, Month startMonth, String title) {
+            this(of(startYear, startMonth), NOW, title, null);
+        }
+
+        public Experience(int startYear, Month startMonth, String title, String description) {
+            this(of(startYear, startMonth), NOW, title, description);
+        }
+
+        public Experience(int startYear, Month startMonth, int endYear, Month endMonth, String title) {
+            this(of(startYear, startMonth), of(endYear, endMonth), title, null);
+        }
+
+        public Experience(int startYear, Month startMonth, int endYear, Month endMonth, String title, String description) {
+            this(of(startYear, startMonth), of(endYear, endMonth), title, description);
         }
 
         public Experience(@NotNull LocalDate startDate, @NotNull LocalDate endDate, @NotNull String title, @Nullable String description) {
@@ -117,7 +140,7 @@ public class Organization {
 
         @Override
         public String toString() {
-            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("MM/YYYY");
+            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("MM/yyyy");
             return dtf.format(startDate) + " - " + dtf.format(endDate) + "  " + title + '\n' + description + '\n';
         }
     }
