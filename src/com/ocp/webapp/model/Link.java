@@ -3,9 +3,11 @@ package com.ocp.webapp.model;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class Link {
+public class Link implements Serializable {
+    public static final long serialVersionIID=1L;
     private final String name;
     private final String url;
 

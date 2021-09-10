@@ -1,4 +1,6 @@
 package com.ocp.webapp.model;
 
-public class AbstractSection {
+import java.io.Serializable;
+
+public class AbstractSection implements Serializable {
 }

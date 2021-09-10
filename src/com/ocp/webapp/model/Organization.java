@@ -4,6 +4,7 @@ import com.ocp.webapp.util.DateUtil;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.Month;
 import java.time.format.DateTimeFormatter;
@@ -16,7 +17,8 @@ import static com.ocp.webapp.util.DateUtil.of;
 import static com.ocp.webapp.util.DateUtil.NOW;
 
 
-public class Organization {
+public class Organization implements Serializable {
+    public static final long serialVersionIID=1L;
     private final Link homePage;
     private List<Experience> experience;
 
@@ -68,7 +70,8 @@ public class Organization {
     }
 
 
-    public static class Experience {
+    public static class Experience implements Serializable{
+        public static final long serialVersionIID=1L;
         private final LocalDate startDate;
         private final LocalDate endDate;
         private final String title;

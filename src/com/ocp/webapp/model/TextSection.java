@@ -5,6 +5,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.Objects;
 
 public class TextSection extends AbstractSection {
+    public static final long serialVersionIID=1L;
     private final String content;
 
     public TextSection(@NotNull String content) {

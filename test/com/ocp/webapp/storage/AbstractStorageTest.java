@@ -7,6 +7,7 @@ import com.ocp.webapp.model.Resume;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.io.File;
 import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Logger;
@@ -14,6 +15,8 @@ import java.util.logging.Logger;
 import static org.junit.jupiter.api.Assertions.*;
 
 class AbstractStorageTest {
+
+    protected static final File STORAGE_DIR = new File("./storage");
 
     protected Storage storage;
 

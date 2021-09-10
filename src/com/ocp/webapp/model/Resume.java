@@ -2,11 +2,14 @@ package com.ocp.webapp.model;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.io.Serializable;
 import java.rmi.server.UID;
 import java.util.*;
 
 
-public class Resume implements Comparable<Resume> {
+public class Resume implements Comparable<Resume>, Serializable {
+
+    public static final long serialVersionIID=1L;
 
     private final String uuid;
     private final String fullName;
