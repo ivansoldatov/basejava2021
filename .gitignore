@@ -4,6 +4,6 @@ out
 log
 lib
 temp
-storage
+/storage
 
 
