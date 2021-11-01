@@ -7,6 +7,6 @@ import static org.junit.jupiter.api.Assertions.*;
 class ObjectStreamStorageTest extends AbstractStorageTest {
 
     public ObjectStreamStorageTest() {
-        super(new ObjectStreamStorage(STORAGE_DIR));
+        super(new ObjectStreamStorage(new File(STORAGE_DIR)));
     }
 }
