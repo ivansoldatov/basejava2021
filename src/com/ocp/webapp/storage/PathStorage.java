@@ -2,33 +2,34 @@ package com.ocp.webapp.storage;
 
 import com.ocp.webapp.exception.StorageException;
 import com.ocp.webapp.model.Resume;
+import com.ocp.webapp.storage.serialization.StreamSerializer;
 import org.jetbrains.annotations.NotNull;
 
-import java.io.*;
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
-public abstract class AbstractPathStorage extends AbstractStorage<Path> {
+public class PathStorage extends AbstractStorage<Path> {
+
+    private final StreamSerializer serializer;
 
     private final Path directory;
 
-    protected AbstractPathStorage(@NotNull String dir) {
+    protected PathStorage(@NotNull String dir, @NotNull StreamSerializer serializer) {
         directory = Paths.get(dir);
         Objects.requireNonNull(directory, "directory must not be null");
+        Objects.requireNonNull(serializer, "Serializer must not be null");
         if (!Files.isDirectory(directory) || !Files.isWritable(directory)) {
             throw new IllegalArgumentException(dir + "is not directory or is not writable");
         }
+        this.serializer = serializer;
     }
-
-    protected abstract void doWrite(OutputStream os, Resume resume) throws IOException;
-
-    protected abstract Resume doRead(InputStream is) throws IOException;
 
     @Override
     protected Path getSearchKey(String uuid) {
@@ -50,15 +51,13 @@ public abstract class AbstractPathStorage extends AbstractStorage<Path> {
         doUpdate(path, resume);
     }
 
-
     @Override
     protected void doUpdate(Path path, Resume resume) {
         try {
-            doWrite(new BufferedOutputStream(Files.newOutputStream(path)), resume);
+            serializer.doWrite(new BufferedOutputStream(Files.newOutputStream(path)), resume);
         } catch (IOException e) {
             throw new StorageException("Path write error", resume.getUuid(), e);
         }
-
     }
 
     @Override
@@ -68,13 +67,12 @@ public abstract class AbstractPathStorage extends AbstractStorage<Path> {
         } catch (IOException e) {
             throw new StorageException("File delete error", path.getFileName().toString());
         }
-
     }
 
     @Override
     protected Resume doGet(Path path) {
         try {
-            return doRead(new BufferedInputStream(Files.newInputStream(path)));
+            return serializer.doRead(new BufferedInputStream(Files.newInputStream(path)));
         } catch (IOException e) {
             throw new StorageException("Path read error", path.getFileName().toString(), e);
         }
@@ -85,9 +83,8 @@ public abstract class AbstractPathStorage extends AbstractStorage<Path> {
         try {
             return Files.list(directory).map(this::doGet).collect(Collectors.toList());
         } catch (IOException e) {
-            throw new StorageException("Dirrectory read error", null);
+            throw new StorageException("Directory read error", null);
         }
-
     }
 
     @Override
@@ -95,7 +92,7 @@ public abstract class AbstractPathStorage extends AbstractStorage<Path> {
         try {
             Files.list(directory).forEach(this::doDelete);
         } catch (IOException e) {
-            throw new StorageException("Dirrectory read error", null);
+            throw new StorageException("Directory read error", null);
         }
     }
 
@@ -104,7 +101,7 @@ public abstract class AbstractPathStorage extends AbstractStorage<Path> {
         try {
             return (int) Files.list(directory).count();
         } catch (IOException e) {
-            throw new StorageException("Dirrectory read error", null);
+            throw new StorageException("Directory read error", null);
         }
     }
 }

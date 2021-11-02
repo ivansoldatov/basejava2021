@@ -2,6 +2,7 @@ package com.ocp.webapp.storage;
 
 import com.ocp.webapp.exception.StorageException;
 import com.ocp.webapp.model.Resume;
+import com.ocp.webapp.storage.serialization.StreamSerializer;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.*;
@@ -9,12 +10,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public abstract class AbstractFileStorage extends AbstractStorage<File> {
+public class FileStorage extends AbstractStorage<File> {
+
+    private final StreamSerializer serializer;
 
     private final File directory;
 
-    protected AbstractFileStorage(@NotNull File directory) {
+    protected FileStorage(@NotNull File directory, @NotNull StreamSerializer serializer) {
         Objects.requireNonNull(directory, "Directory must be not null");
+        Objects.requireNonNull(serializer, "Serializer must be not null");
         if (!directory.isDirectory()) {
             throw new IllegalArgumentException(directory.getAbsolutePath() + " is not directory");
         }
@@ -22,11 +26,12 @@ public abstract class AbstractFileStorage extends AbstractStorage<File> {
             throw new IllegalArgumentException(directory.getAbsolutePath() + " is not readable/writable");
         }
         this.directory = directory;
+        this.serializer = serializer;
     }
 
-    protected abstract void doWrite(OutputStream os, Resume resume) throws IOException;
+//    protected abstract void doWrite(OutputStream os, Resume resume) throws IOException;
 
-    protected abstract Resume doRead(InputStream is) throws IOException;
+//    protected abstract Resume doRead(InputStream is) throws IOException;
 
     @Override
     protected File getSearchKey(String uuid) {
@@ -48,15 +53,13 @@ public abstract class AbstractFileStorage extends AbstractStorage<File> {
         doUpdate(file, resume);
     }
 
-
     @Override
     protected void doUpdate(File file, Resume resume) {
         try {
-            doWrite(new BufferedOutputStream(new FileOutputStream(file)), resume);
+            serializer.doWrite(new BufferedOutputStream(new FileOutputStream(file)), resume);
         } catch (IOException e) {
             throw new StorageException("File write error", resume.getUuid(), e);
         }
-
     }
 
     @Override
@@ -64,13 +67,12 @@ public abstract class AbstractFileStorage extends AbstractStorage<File> {
         if (!file.delete()) {
             throw new StorageException("File delete error", file.getName());
         }
-
     }
 
     @Override
     protected Resume doGet(File file) {
         try {
-            return doRead(new BufferedInputStream(new FileInputStream(file)));
+            return serializer.doRead(new BufferedInputStream(new FileInputStream(file)));
         } catch (IOException e) {
             throw new StorageException("File read error", file.getName(), e);
         }
