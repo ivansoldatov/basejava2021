@@ -19,6 +19,7 @@ public class ObjectStreamPathStorage extends AbstractPathStorage {
         }
     }
 
+
     @Override
     protected Resume doRead(InputStream is) throws IOException {
         try (ObjectInputStream ois = new ObjectInputStream(is)) {
