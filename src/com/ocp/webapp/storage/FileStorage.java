@@ -29,10 +29,6 @@ public class FileStorage extends AbstractStorage<File> {
         this.serializer = serializer;
     }
 
-//    protected abstract void doWrite(OutputStream os, Resume resume) throws IOException;
-
-//    protected abstract Resume doRead(InputStream is) throws IOException;
-
     @Override
     protected File getSearchKey(String uuid) {
         return new File(directory, uuid);
@@ -82,7 +78,7 @@ public class FileStorage extends AbstractStorage<File> {
     protected List<Resume> doCopyAll() {
         File[] files = directory.listFiles();
         if (files == null) {
-            throw new StorageException("Directory read error", null);
+            throw new StorageException("Directory read error");
         }
         List<Resume> list = new ArrayList<>();
         for (File f : directory.listFiles()) {
