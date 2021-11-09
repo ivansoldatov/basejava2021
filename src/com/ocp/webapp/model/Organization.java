@@ -1,9 +1,13 @@
 package com.ocp.webapp.model;
 
 import com.ocp.webapp.util.DateUtil;
+import com.ocp.webapp.util.LocalDateAdapter;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.Month;
@@ -17,10 +21,14 @@ import static com.ocp.webapp.util.DateUtil.of;
 import static com.ocp.webapp.util.DateUtil.NOW;
 
 
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Organization implements Serializable {
-    public static final long serialVersionIID=1L;
-    private final Link homePage;
+    public static final long serialVersionIID = 1L;
+    private Link homePage;
     private List<Experience> experience;
+
+    public Organization() {
+    }
 
     public Organization(String name, String url, Experience... experiences) {
         this(new Link(name, url), Arrays.asList(experiences));
@@ -69,13 +77,18 @@ public class Organization implements Serializable {
         return sb.toString();
     }
 
+    @XmlAccessorType(XmlAccessType.FIELD)
+    public static class Experience implements Serializable {
+        public static final long serialVersionIID = 1L;
+        @XmlJavaTypeAdapter(LocalDateAdapter.class)
+        private LocalDate startDate;
+        @XmlJavaTypeAdapter(LocalDateAdapter.class)
+        private LocalDate endDate;
+        private String title;
+        private String description;
 
-    public static class Experience implements Serializable{
-        public static final long serialVersionIID=1L;
-        private final LocalDate startDate;
-        private final LocalDate endDate;
-        private final String title;
-        private final String description;
+        public Experience() {
+        }
 
         public Experience(int startYear, Month startMonth, String title) {
             this(of(startYear, startMonth), NOW, title, null);
