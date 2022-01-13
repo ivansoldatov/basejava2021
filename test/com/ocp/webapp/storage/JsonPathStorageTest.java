@@ -1,10 +1,11 @@
 package com.ocp.webapp.storage;
 
+import com.ocp.webapp.storage.serialization.JsonStreamSerializer;
 import com.ocp.webapp.storage.serialization.XmlStreamSerializer;
 
-class XmlPathStorageTest extends AbstractStorageTest {
+class JsonPathStorageTest extends AbstractStorageTest {
 
-    public XmlPathStorageTest() {
-        super(new PathStorage(STORAGE_DIR, new XmlStreamSerializer()));
+    public JsonPathStorageTest() {
+        super(new PathStorage(STORAGE_DIR, new JsonStreamSerializer()));
     }
 }

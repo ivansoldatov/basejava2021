@@ -42,6 +42,7 @@ class AbstractStorageTest {
 //    private static final Resume RESUME_3 = new Resume(UUID_3, FULL_NAME_3);
 //    private static final Resume RESUME_4 = new Resume(UUID_4, FULL_NAME_4);
 
+
     private static final Resume RESUME_1 = ResumeTestData.getResumeContacts(UUID_1, FULL_NAME_1);
     private static final Resume RESUME_2 = ResumeTestData.getResumeFull(UUID_2, FULL_NAME_2);
     private static final Resume RESUME_3 = new Resume(UUID_3, FULL_NAME_3);
