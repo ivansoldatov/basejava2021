@@ -1,6 +1,5 @@
 package com.ocp.webapp.model;
 
-import com.ocp.webapp.util.DateUtil;
 import com.ocp.webapp.util.LocalDateAdapter;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -12,13 +11,12 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.Month;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
-import static com.ocp.webapp.util.DateUtil.of;
 import static com.ocp.webapp.util.DateUtil.NOW;
+import static com.ocp.webapp.util.DateUtil.of;
 
 
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -99,7 +97,7 @@ public class Organization implements Serializable {
         }
 
         public Experience(int startYear, Month startMonth, int endYear, Month endMonth, String title) {
-            this(of(startYear, startMonth), of(endYear, endMonth), title, null);
+            this(of(startYear, startMonth), of(endYear, endMonth), title, "");
         }
 
         public Experience(int startYear, Month startMonth, int endYear, Month endMonth, String title, String description) {

@@ -1,7 +1,6 @@
 package com.ocp.webapp.model;
 
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -10,16 +9,21 @@ import java.util.Objects;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Link implements Serializable {
-    public static final long serialVersionIID=1L;
+    public static final long serialVersionIID = 1L;
     private String name;
     private String url;
 
     public Link() {
     }
 
-    public Link(@NotNull String name, @Nullable String url) {
+    public Link(@NotNull String name) {
         Objects.requireNonNull(name, "name must not be null");
         this.name = name;
+        this.url = "";
+    }
+
+    public Link(@NotNull String name, @NotNull String url) {
+        this(name);
         this.url = url;
     }
 

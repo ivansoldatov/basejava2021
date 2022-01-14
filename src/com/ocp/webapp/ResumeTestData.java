@@ -30,7 +30,7 @@ public class ResumeTestData {
 
     private static Link Link_Organization_1 = new Link("Компания-1", "Url Компании-1");
     private static Link Link_Organization_2 = new Link("Компания-2", "Url Компании-2");
-    private static Link Link_Organization_3 = new Link("Компания-3", null);
+    private static Link Link_Organization_3 = new Link("Компания-3");
 
     private static Organization.Experience experience_1 = new Organization.Experience(DateUtil.of(1997, Month.SEPTEMBER), DateUtil.of(2005, Month.JUNE), "Должность в Компании-1", "Опыт в Компании-1");
     private static Organization.Experience experience_2 = new Organization.Experience(DateUtil.of(2005, Month.JANUARY), DateUtil.of(2007, Month.FEBRUARY), "Должность в Компании-2", "Опыт в Компании-3");
@@ -42,7 +42,7 @@ public class ResumeTestData {
     private static List<Organization> organizationsList = Arrays.asList(organization_1, organization_2, organization_3);
 
     private static Link Link_Education_1 = new Link("Институт-1", "Url Институт-1");
-    private static Link Link_Education_2 = new Link("Институт-2", null);
+    private static Link Link_Education_2 = new Link("Институт-2");
     private static Link Link_Education_3 = new Link("Интститут-3", "Url Институт-3");
 
     private static Organization.Experience education_1 = new Organization.Experience(1997, Month.SEPTEMBER, 2000, Month.JUNE, "Образование-1 в Институте-1");
