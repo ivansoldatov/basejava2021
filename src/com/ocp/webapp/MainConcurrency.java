@@ -5,7 +5,7 @@ import java.util.List;
 
 public class MainConcurrency {
     public static final int THREADS_NUMBER = 10000;
-    private int counter;
+    private volatile int counter;
     private static final Object LOCK = new Object();
 
     public static void main(String[] args) throws InterruptedException {
