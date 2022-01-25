@@ -1,5 +1,6 @@
 package com.ocp.webapp.storage;
 
+import com.ocp.webapp.Config;
 import com.ocp.webapp.ResumeTestData;
 import com.ocp.webapp.exception.ExistStorageException;
 import com.ocp.webapp.exception.NotExistStorageException;
@@ -7,6 +8,7 @@ import com.ocp.webapp.model.Resume;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.io.File;
 import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Logger;
@@ -15,8 +17,8 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class AbstractStorageTest {
 
-    //    protected static final File STORAGE_DIR = new File("./storage");
-    protected static final String STORAGE_DIR = "./storage";
+//        protected static final File STORAGE_DIR = new File("./storage");
+    protected static final File STORAGE_DIR = Config.get().getStorageDir();
 
     protected Storage storage;
 
@@ -35,15 +37,13 @@ class AbstractStorageTest {
     private static final String FULL_NAME_3 = "Alex";
     private static final String FULL_NAME_4 = "Tom";
 
-
 //    private static final Resume RESUME_1 = new Resume(UUID_1, FULL_NAME_1);
 //    private static final Resume RESUME_2 = new Resume(UUID_2, FULL_NAME_2);
 //    private static final Resume RESUME_3 = new Resume(UUID_3, FULL_NAME_3);
 //    private static final Resume RESUME_4 = new Resume(UUID_4, FULL_NAME_4);
 
-
     private static final Resume RESUME_1 = ResumeTestData.getResumeContacts(UUID_1, FULL_NAME_1);
-//    private static final Resume RESUME_2 = ResumeTestData.getResumeContacts(UUID_2, FULL_NAME_2);
+    //    private static final Resume RESUME_2 = ResumeTestData.getResumeContacts(UUID_2, FULL_NAME_2);
     private static final Resume RESUME_2 = ResumeTestData.getResumeFull(UUID_2, FULL_NAME_2);
     private static final Resume RESUME_3 = new Resume(UUID_3, FULL_NAME_3);
     private static final Resume RESUME_4 = new Resume(UUID_4, FULL_NAME_4);
@@ -146,6 +146,4 @@ class AbstractStorageTest {
     private void assertSize(int size) {
         assertEquals(size, storage.size());
     }
-
-
 }
