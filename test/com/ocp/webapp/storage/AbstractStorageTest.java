@@ -10,6 +10,7 @@ import org.junit.jupiter.api.Test;
 import java.io.File;
 import java.util.Arrays;
 import java.util.List;
+import java.util.UUID;
 import java.util.logging.Logger;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -19,7 +20,6 @@ class AbstractStorageTest {
     //        protected static final File STORAGE_DIR = new File("./storage");
     protected static final File STORAGE_DIR = Config.get().getStorageDir();
 
-
     protected Storage storage;
 
     protected AbstractStorageTest(Storage storage) {
@@ -28,10 +28,10 @@ class AbstractStorageTest {
 
     private static final Logger LOGGER = Logger.getLogger(AbstractStorage.class.getName());
 
-    private static final String UUID_1 = "uuid1";
-    private static final String UUID_2 = "uuid2";
-    private static final String UUID_3 = "uuid3";
-    private static final String UUID_4 = "uuid4";
+    private static final String UUID_1 = UUID.randomUUID().toString();
+    private static final String UUID_2 = UUID.randomUUID().toString();
+    private static final String UUID_3 = UUID.randomUUID().toString();
+    private static final String UUID_4 = UUID.randomUUID().toString();
     private static final String FULL_NAME_1 = "Alex";
     private static final String FULL_NAME_2 = "Bill";
     private static final String FULL_NAME_3 = "Alex";
