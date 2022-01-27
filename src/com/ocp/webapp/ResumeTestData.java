@@ -12,7 +12,7 @@ public class ResumeTestData {
     private static String mail = "gkislin@yandex.ru";
     private static String github = "https://github.com/gkislin";
     private static String homepage = "http://gkislin.ru/";
-    private static String linkedin = "https://www.linkedin.com/in/gkislin";
+    private static final String linkedin = "https://www.linkedin.com/in/gkislin";
     private static String skype = "grigory.kislin";
 
     private static String objectiveText = "Название позиции на которую претендую";

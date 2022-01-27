@@ -1,6 +1,7 @@
 package com.ocp.webapp.storage;
 
 import com.ocp.webapp.exception.NotExistStorageException;
+import com.ocp.webapp.model.ContactType;
 import com.ocp.webapp.model.Resume;
 import com.ocp.webapp.sql.SqlHelper;
 
@@ -8,6 +9,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class SqlStorage implements Storage {
     public final SqlHelper sqlHelper;
@@ -29,6 +31,14 @@ public class SqlStorage implements Storage {
             ps.execute();
             return null;
         });
+        for (Map.Entry<ContactType, String> e : resume.getContacts().entrySet())
+            sqlHelper.<Void>execute("INSERT INTO contact (type, value, resume_uuid) VALUES (?,?,?)", ps -> {
+                ps.setString(1, e.getKey().name());
+                ps.setString(2, e.getValue());
+                ps.setString(3, resume.getUuid());
+                ps.execute();
+                return null;
+            });
     }
 
     @Override
@@ -45,13 +55,17 @@ public class SqlStorage implements Storage {
 
     @Override
     public Resume get(String uuid) {
-        return sqlHelper.execute("SELECT * from resume r  where r.uuid=?", ps -> {
+        return sqlHelper.execute("SELECT * from resume r LEFT JOIN contact c on r.uuid = c.resume_uuid where r.uuid=?", ps -> {
             ps.setString(1, uuid);
             ResultSet rs = ps.executeQuery();
             if (!rs.next()) {
                 throw new NotExistStorageException(uuid);
             }
-            return new Resume(uuid, rs.getString("full_name"));
+            Resume resume = new Resume(uuid, rs.getString("full_name"));
+            do {
+                resume.addContact(ContactType.valueOf(rs.getString("type")), rs.getString("value"));
+            } while (rs.next());
+            return resume;
         });
     }
 
