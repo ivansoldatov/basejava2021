@@ -6,6 +6,7 @@ import com.ocp.webapp.model.Resume;
 import com.ocp.webapp.sql.SqlHelper;
 
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
@@ -25,20 +26,24 @@ public class SqlStorage implements Storage {
 
     @Override
     public void save(Resume resume) {
-        sqlHelper.<Void>execute("INSERT INTO resume (uuid, full_name ) VALUES (?,?)", ps -> {
-            ps.setString(1, resume.getUuid());
-            ps.setString(2, resume.getFullName());
-            ps.execute();
-            return null;
-        });
-        for (Map.Entry<ContactType, String> e : resume.getContacts().entrySet())
-            sqlHelper.<Void>execute("INSERT INTO contact (type, value, resume_uuid) VALUES (?,?,?)", ps -> {
-                ps.setString(1, e.getKey().name());
-                ps.setString(2, e.getValue());
-                ps.setString(3, resume.getUuid());
-                ps.execute();
-                return null;
-            });
+        sqlHelper.transactionalExecute(conn -> {
+                    try (PreparedStatement ps = conn.prepareStatement("INSERT INTO resume (uuid, full_name) VALUES (?,?)")) {
+                        ps.setString(1, resume.getUuid());
+                        ps.setString(2, resume.getFullName());
+                        ps.execute();
+                    }
+                    try (PreparedStatement ps = conn.prepareStatement("INSERT INTO contact (resume_uuid, type, value) VALUES (?,?,?)")) {
+                        for (Map.Entry<ContactType, String> e : resume.getContacts().entrySet()) {
+                            ps.setString(1, resume.getUuid());
+                            ps.setString(2, e.getKey().name());
+                            ps.setString(3, e.getValue());
+                            ps.addBatch();
+                        }
+                        ps.executeBatch();
+                    }
+                    return null;
+                }
+        );
     }
 
     @Override
