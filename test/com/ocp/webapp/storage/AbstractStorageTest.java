@@ -4,6 +4,7 @@ import com.ocp.webapp.Config;
 import com.ocp.webapp.ResumeTestData;
 import com.ocp.webapp.exception.ExistStorageException;
 import com.ocp.webapp.exception.NotExistStorageException;
+import com.ocp.webapp.model.ContactType;
 import com.ocp.webapp.model.Resume;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -33,9 +34,9 @@ class AbstractStorageTest {
     private static final String UUID_2 = UUID.randomUUID().toString();
     private static final String UUID_3 = UUID.randomUUID().toString();
     private static final String UUID_4 = UUID.randomUUID().toString();
-    private static final String FULL_NAME_1 = "Alex";
-    private static final String FULL_NAME_2 = "Bill";
-    private static final String FULL_NAME_3 = "Alex";
+    private static final String FULL_NAME_1 = "Bill";
+    private static final String FULL_NAME_2 = "Alex";
+    private static final String FULL_NAME_3 = "Mike";
     private static final String FULL_NAME_4 = "Tom";
 
 //    private static final Resume RESUME_1 = new Resume(UUID_1, FULL_NAME_1);
@@ -90,10 +91,12 @@ class AbstractStorageTest {
     @Test
     void update() {
         LOGGER.info("********TEST: Update start********");
-        Resume newResume = new Resume(UUID_1, "new Resume");
+        Resume newResume = new Resume(UUID_1, "New Name");
+        RESUME_1.addContact(ContactType.MAIL, "mail1@google.com");
+        RESUME_1.addContact(ContactType.SKYPE, "NewSkype");
+        RESUME_1.addContact(ContactType.PHONE, "+7 921 222-22-22");
         storage.update(newResume);
-        assertEquals(newResume, storage.get(UUID_1));
-        LOGGER.info("********TEST: Update end********");
+        assertTrue(newResume.equals(storage.get(UUID_1)));
     }
 
     @Test
@@ -115,7 +118,7 @@ class AbstractStorageTest {
     @Test
     void getAllSorted() {
         LOGGER.info("********TEST: Get all sorted start********");
-        List<Resume> expectedList = Arrays.asList(RESUME_1, RESUME_3, RESUME_2);
+        List<Resume> expectedList = Arrays.asList(RESUME_2, RESUME_1, RESUME_3);
         List<Resume> actualList = storage.getAllSorted();
         assertEquals(3, actualList.size());
         assertIterableEquals(expectedList, actualList);
