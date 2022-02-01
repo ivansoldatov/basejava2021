@@ -48,7 +48,7 @@ public class ResumeTestData {
     private static Organization.Experience education_1 = new Organization.Experience(1997, Month.SEPTEMBER, 2000, Month.JUNE, "Образование-1 в Институте-1");
     private static Organization.Experience education_2 = new Organization.Experience(2000, Month.JANUARY, 2005, Month.FEBRUARY, "Образование-2 в Институте-2");
     private static Organization.Experience education_3 = new Organization.Experience(2005, Month.MARCH, 2008, Month.JUNE, "Образование-3 в Институте-3");
-    private static Organization.Experience education_4 = new Organization.Experience(2009, Month.MARCH, 2010, Month.FEBRUARY,"Образование-4 в Институте-3");
+    private static Organization.Experience education_4 = new Organization.Experience(2009, Month.MARCH, 2010, Month.FEBRUARY, "Образование-4 в Институте-3");
 
     private static Organization University_1 = new Organization(Link_Education_1, Arrays.asList(education_1));
     private static Organization University_2 = new Organization(Link_Education_2, Arrays.asList(education_2));
@@ -78,9 +78,17 @@ public class ResumeTestData {
         return resume;
     }
 
-    public static Resume getResumeFull(String uuid, String fullName) {
+    public static Resume getResumeTextSection(String uuid, String fullName) {
         Resume resume = getResumeContacts(uuid, fullName);
         resume.addSection(SectionType.OBJECTIVE, objectiveSection);
+        resume.addSection(SectionType.PERSONAL, personalSection);
+        resume.addSection(SectionType.ACHIEVEMENT, achievementSection);
+        resume.addSection(SectionType.QUALIFICATIONS, qualificationSection);
+        return resume;
+    }
+
+    public static Resume getResumeFull(String uuid, String fullName) {
+        Resume resume = getResumeContacts(uuid, fullName);
         resume.addSection(SectionType.OBJECTIVE, objectiveSection);
         resume.addSection(SectionType.PERSONAL, personalSection);
         resume.addSection(SectionType.ACHIEVEMENT, achievementSection);
