@@ -9,6 +9,7 @@
     <title>Список всех резюме</title>
 </head>
 <body>
+<%@ include file="fragments/header.jsp"%>
 <section>
     <table>
         <tr>
@@ -29,6 +30,7 @@
         %>
     </table>
 </section>
+<%@ include file="fragments/footer.jsp"%>
 
 </body>
 </html>
